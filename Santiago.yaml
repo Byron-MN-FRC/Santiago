@@ -77,7 +77,7 @@ Children:
         validators: null
         value: []
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: DriveWithJoystick}
+        name: Default Command, type: Command, validators: null, value: DriveWithXBox}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
@@ -94,25 +94,25 @@ Children:
           default: '0'
           name: Forward Module (Solenoid)
           validators: [Solenoid]
-          value: '20'
+          value: '10'
         Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
           name: Reverse Channel (Solenoid)
           validators: null
-          value: '0'
+          value: '6'
         Forward Module Type (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: [CTREPCM, REVPH]
           default: CTREPCM
           name: Forward Module Type (Solenoid)
           validators: null
-          value: REVPH
+          value: CTREPCM
         Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
           choices: ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
           name: Forward Channel (Solenoid)
           validators: [Solenoid]
-          value: '1'
+          value: '7'
       Base: Double Solenoid
       Name: Shifter
     Properties:
@@ -230,6 +230,99 @@ Children:
         value: '0'
     Base: Joystick
     Name: DriveJoystick
+  - Children:
+    - Children: []
+      Properties:
+        Interruptible: !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id007 [CancelSelf, CancelIncoming]
+          default: CancelSelf
+          name: Interruptible
+          validators: null
+          value: CancelSelf
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: xBoxDrive}
+        Parameters: !!robotbuilder.data.properties.ParametersProperty
+          default: []
+          name: Parameters
+          validators: null
+          value: []
+        Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Send to SmartDashboard, validators: null, value: false}
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id008 [A, B, X, Y, Back, Start, LeftBumper, RightBumper, LeftStick,
+            RightStick]
+          default: A
+          name: Button
+          validators: null
+          value: LeftBumper
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: &id009 [TypeDropdownSelected]
+          value: ShiftUpCommand
+        Timeout: !!robotbuilder.data.properties.PositiveDoubleProperty {default: 0,
+          name: Timeout, validators: null, value: 0.0}
+        Add Timeout: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Add Timeout, validators: null, value: false}
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id010 [onTrue, onFalse, whileTrue, whileFalse, toggleOnTrue, toggleOnFalse]
+          default: onTrue
+          name: When to Run
+          validators: null
+          value: onTrue
+      Base: Xbox Button
+      Name: xBoxShiftUp
+    - Children: []
+      Properties:
+        Interruptible: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id007
+          default: CancelSelf
+          name: Interruptible
+          validators: null
+          value: CancelSelf
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: xBoxDrive}
+        Parameters: !!robotbuilder.data.properties.ParametersProperty
+          default: []
+          name: Parameters
+          validators: null
+          value: []
+        Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Send to SmartDashboard, validators: null, value: false}
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id008
+          default: A
+          name: Button
+          validators: null
+          value: RightBumper
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id009
+          value: ShiftDownCommand
+        Timeout: !!robotbuilder.data.properties.PositiveDoubleProperty {default: 0,
+          name: Timeout, validators: null, value: 0.0}
+        Add Timeout: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Add Timeout, validators: null, value: false}
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id010
+          default: onTrue
+          name: When to Run
+          validators: null
+          value: onTrue
+      Base: Xbox Button
+      Name: xBoxShiftDown
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: ['0', '1', '2', '3', '4', '5']
+        default: 1
+        name: Number
+        validators: [Joystick]
+        value: '1'
+    Base: Xbox Controller
+    Name: xBoxDrive
   Properties: {}
   Base: OI
   Name: Operator Interface
@@ -275,7 +368,7 @@ Children:
         validators: null
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: DriveWithJoystick
   - Children: []
@@ -322,6 +415,28 @@ Children:
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: ShiftDownCommand
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: DriveTrain}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id011 []
+        name: Parameter presets
+        validators: null
+        value: *id011
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: DriveWithXBox
   Properties: {}
   Base: Commands
   Name: Commands

@@ -35,8 +35,8 @@ public class Robot extends TimedRobot {
 
     private RobotContainer m_robotContainer;
 
-    public PneumaticHub ph = new PneumaticHub(21);
-    Compressor compressor = new Compressor(21, PneumaticsModuleType.REVPH);
+    public PneumaticHub ph = new PneumaticHub(10);
+    Compressor compressor = new Compressor(10, PneumaticsModuleType.CTREPCM);
 
 
     /**
